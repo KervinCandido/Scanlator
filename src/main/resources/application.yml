@@ -1,1 +1,4 @@
-
+spring:
+  devtools:
+    remote:
+      secret: scanlator
