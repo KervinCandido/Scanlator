@@ -1,4 +1,4 @@
-package com.github.kervincandido.forum;
+package com.github.kervincandido.scanlator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
