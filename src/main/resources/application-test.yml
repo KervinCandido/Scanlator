@@ -1,15 +1,9 @@
-server:
-  port: 8080
 spring:
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    #create database scanlator character set utf8mb4 collate utf8mb4_0900_ai_ci
-    url: jdbc:mysql://mysql:3306/scanlator?zeroDateTimeBehavior=CONVERT_TO_NULL
-    username: root
-    password: root
-  devtools:
-    remote:
-      secret: scanlator
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
 # jpa
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
