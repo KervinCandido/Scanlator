@@ -1,5 +1,7 @@
 package com.github.kervincandido.scanlator.controller.dto;
 
+import org.springframework.data.domain.Page;
+
 import com.github.kervincandido.scanlator.model.User;
 
 import lombok.Data;
@@ -15,5 +17,9 @@ public class UserDTO {
 		id = user.getId();
 		name = user.getName();
 		email = user.getEmail();
+	}
+
+	public static Page<UserDTO> covertToDTO(Page<User> result) {
+		return result.map(UserDTO::new);
 	}
 }

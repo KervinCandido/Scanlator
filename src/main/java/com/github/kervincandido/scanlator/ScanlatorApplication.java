@@ -9,5 +9,4 @@ public class ScanlatorApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ScanlatorApplication.class, args);
 	}
-
 }
