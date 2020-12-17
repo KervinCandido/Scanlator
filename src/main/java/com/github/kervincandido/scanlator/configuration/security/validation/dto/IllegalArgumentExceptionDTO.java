@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 @Data
-public class ResponseStatusErrorDTO {
+public class IllegalArgumentExceptionDTO {
 
 	@NonNull
 	private String message;

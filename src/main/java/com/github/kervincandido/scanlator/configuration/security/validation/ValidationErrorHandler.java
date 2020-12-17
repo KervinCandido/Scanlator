@@ -11,10 +11,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.github.kervincandido.scanlator.configuration.security.validation.dto.FieldErrorDTO;
-import com.github.kervincandido.scanlator.configuration.security.validation.dto.ResponseStatusErrorDTO;
+import com.github.kervincandido.scanlator.configuration.security.validation.dto.IllegalArgumentExceptionDTO;
 
 @RestControllerAdvice
 public class ValidationErrorHandler {
@@ -36,9 +35,9 @@ public class ValidationErrorHandler {
 	}
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(ResponseStatusException.class)
-	public ResponseStatusErrorDTO handle(ResponseStatusException exception) {
-		var message = exception.getReason() != null ? exception.getReason() : exception.getMessage();
-		return new ResponseStatusErrorDTO(message);
+	@ExceptionHandler(IllegalArgumentException.class)
+	public IllegalArgumentExceptionDTO handle(IllegalArgumentException exception) {
+		var message = exception.getMessage();
+		return new IllegalArgumentExceptionDTO(message);
 	}
 }

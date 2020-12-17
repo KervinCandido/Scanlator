@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.github.kervincandido.scanlator.controller.dto.UserDTO;
 import com.github.kervincandido.scanlator.service.UserService;
@@ -36,7 +34,7 @@ public class UserController {
 			: userService.findAll(pageable);
 		
 		if (page.getTotalElements() < 1 && email.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
 		}
 			
 		return ResponseEntity.ok(page);
@@ -44,7 +42,11 @@ public class UserController {
 	
 	@GetMapping("/{id}")
 	private ResponseEntity<UserDTO> findUserById(@PathVariable("id") Long id) {
-		return null;
+		var user = userService.findById(id);
+		if (user.isPresent()) {
+			return ResponseEntity.ok(user.get());
+		}
+		return ResponseEntity.notFound().build();
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.github.kervincandido.scanlator.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,5 +47,10 @@ public class UserService {
 	public Page<UserDTO> findAll(Pageable pageable) {
 		var result = userRepository.findAll(pageable);
 		return UserDTO.covertToDTO(result);
+	}
+	
+	public Optional<UserDTO> findById(Long id) {
+		var result = userRepository.findById(id);
+		return result.map(UserDTO::new);
 	}
 }
