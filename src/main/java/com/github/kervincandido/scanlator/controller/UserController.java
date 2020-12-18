@@ -33,7 +33,7 @@ public class UserController {
 			? userService.findByEmail(email.get(), pageable)
 			: userService.findAll(pageable);
 		
-		if (page.getTotalElements() < 1 && email.isPresent()) {
+		if (page.getNumberOfElements() < 1 && email.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 			
