@@ -4,9 +4,9 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     #create database scanlator character set utf8mb4 collate utf8mb4_0900_ai_ci
-    url: jdbc:mysql://mysql:3306/scanlator?zeroDateTimeBehavior=CONVERT_TO_NULL
+    url: jdbc:mysql://scanlator-db/scanlator?zeroDateTimeBehavior=CONVERT_TO_NULL
     username: root
-    password: root
+    password: scanlator
   devtools:
     remote:
       secret: scanlator
