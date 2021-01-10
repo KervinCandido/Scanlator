@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.github.kervincandido.scanlator.controller.dto.UserDTO;
 import com.github.kervincandido.scanlator.controller.form.SignUpForm;
+import com.github.kervincandido.scanlator.model.User;
 import com.github.kervincandido.scanlator.repository.UserRepository;
 
 @Service
@@ -24,7 +24,7 @@ public class UserService {
 	 * @return UserDTO
 	 * @throws IllegalArgumentException if Email already registered
 	 */
-	public UserDTO create(SignUpForm signUpForm) throws IllegalArgumentException {
+	public User create(SignUpForm signUpForm) throws IllegalArgumentException {
 		var user = signUpForm.toUser();
 		
 		var userDB = userRepository.findByEmail(user.getEmail());
@@ -36,21 +36,22 @@ public class UserService {
 		var encoder = new BCryptPasswordEncoder();
 		user.setPassword(encoder.encode(user.getPassword()));
 		
-		return new UserDTO(userRepository.save(user));
+		return userRepository.save(user);
 	}
 
-	public Page<UserDTO> findByEmail(String email, Pageable pageable) {
-		var result = userRepository.findByEmail(email, pageable);
-		return UserDTO.covertToDTO(result);
+	public Page<User> findByEmail(String email, Pageable pageable) {
+		return userRepository.findByEmail(email, pageable);
 	}
 
-	public Page<UserDTO> findAll(Pageable pageable) {
-		var result = userRepository.findAll(pageable);
-		return UserDTO.covertToDTO(result);
+	public Page<User> findAll(Pageable pageable) {
+		return userRepository.findAll(pageable);
 	}
 	
-	public Optional<UserDTO> findById(Long id) {
-		var result = userRepository.findById(id);
-		return result.map(UserDTO::new);
+	public Optional<User> findById(Long id) {
+		return userRepository.findById(id);
+	}
+
+	public Optional<User> findByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 }

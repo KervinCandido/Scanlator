@@ -27,9 +27,9 @@ public class SignUpController {
 	
 	@PostMapping
 	private ResponseEntity<UserDTO> createUser(@RequestBody @Valid SignUpForm signUpForm, UriComponentsBuilder uriBuild) {
-		var userDTO = userService.create(signUpForm);
-		var uri = uriBuild.path("/user/{id}").port(randomServerPort).buildAndExpand(userDTO.getId()).toUri();
+		var user = userService.create(signUpForm);
+		var uri = uriBuild.path("/user/{id}").port(randomServerPort).buildAndExpand(user.getId()).toUri();
 		
-		return ResponseEntity.created(uri).body(userDTO);		
+		return ResponseEntity.created(uri).body(new UserDTO(user));
 	}
 }

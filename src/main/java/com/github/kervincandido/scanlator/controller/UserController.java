@@ -37,15 +37,17 @@ public class UserController {
 			return ResponseEntity.notFound().build();
 		}
 			
-		return ResponseEntity.ok(page);
+		return ResponseEntity.ok(UserDTO.covertToDTO(page));
 	}
 	
 	@GetMapping("/{id}")
 	private ResponseEntity<UserDTO> findUserById(@PathVariable("id") Long id) {
 		var user = userService.findById(id);
+		
 		if (user.isPresent()) {
-			return ResponseEntity.ok(user.get());
+			return ResponseEntity.ok(new UserDTO(user.get()));
 		}
+		
 		return ResponseEntity.notFound().build();
 	}
 	

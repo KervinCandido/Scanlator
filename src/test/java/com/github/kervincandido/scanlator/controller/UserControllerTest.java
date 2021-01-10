@@ -28,7 +28,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.github.kervincandido.scanlator.controller.dto.UserDTO;
 import com.github.kervincandido.scanlator.model.User;
 import com.github.kervincandido.scanlator.model.UserBuilder;
 import com.github.kervincandido.scanlator.service.UserService;
@@ -60,7 +59,7 @@ public class UserControllerTest {
 	@Test
 	public void testGETfindAllUser() throws Exception {
 		when(userService.findAll(ArgumentMatchers.any(Pageable.class)))
-			.thenReturn(UserDTO.covertToDTO(new PageImpl<>(this.user)));
+			.thenReturn(new PageImpl<>(this.user));
 		
 		mockMvc.perform(MockMvcRequestBuilders.get("/user"))
 			.andExpect(MockMvcResultMatchers.status().isOk())
@@ -76,7 +75,7 @@ public class UserControllerTest {
 	@Test
 	public void testGETfindUserByEmail() throws Exception {
 		when(userService.findByEmail(ArgumentMatchers.anyString(), ArgumentMatchers.any(Pageable.class)))
-			.thenReturn(UserDTO.covertToDTO(new PageImpl<>(List.of(this.user.get(0)))));
+			.thenReturn(new PageImpl<>(List.of(this.user.get(0))));
 		
 		mockMvc.perform(MockMvcRequestBuilders.get("/user?email=test@test"))
 			.andExpect(MockMvcResultMatchers.status().isOk())
@@ -93,7 +92,7 @@ public class UserControllerTest {
 	@Test
 	public void testHEADfindUserByEmail() throws Exception {
 		when(userService.findByEmail(ArgumentMatchers.anyString(), ArgumentMatchers.any(Pageable.class)))
-			.thenReturn(UserDTO.covertToDTO(new PageImpl<>(List.of(this.user.get(0)))));
+			.thenReturn(new PageImpl<>(List.of(this.user.get(0))));
 		
 		mockMvc.perform(MockMvcRequestBuilders.head("/user?email=test@test"))
 			.andExpect(MockMvcResultMatchers.status().isOk());
@@ -105,7 +104,7 @@ public class UserControllerTest {
 	@Test
 	public void testGETfindUserByEmailAndReturnNotFound() throws Exception {
 		when(userService.findByEmail(ArgumentMatchers.anyString(), ArgumentMatchers.any(Pageable.class)))
-			.thenReturn(UserDTO.covertToDTO(new PageImpl<>(List.of())));
+			.thenReturn(new PageImpl<>(List.of()));
 		
 		mockMvc.perform(MockMvcRequestBuilders.get("/user?email=test@test"))
 			.andExpect(MockMvcResultMatchers.status().isNotFound());
@@ -117,7 +116,7 @@ public class UserControllerTest {
 	@Test
 	public void testHEADfindUserByEmailAndReturnNotFound() throws Exception {
 		when(userService.findByEmail(ArgumentMatchers.anyString(), ArgumentMatchers.any(Pageable.class)))
-			.thenReturn(UserDTO.covertToDTO(new PageImpl<>(List.of())));
+			.thenReturn(new PageImpl<>(List.of()));
 		
 		mockMvc.perform(MockMvcRequestBuilders.head("/user?email=test@test"))
 			.andExpect(MockMvcResultMatchers.status().isNotFound());
@@ -129,7 +128,7 @@ public class UserControllerTest {
 	@Test
 	public void testGETfindUserById() throws Exception {
 		when(userService.findById(ArgumentMatchers.anyLong()))
-			.thenReturn(Optional.of(new UserDTO(user.get(0))));
+			.thenReturn(Optional.of(user.get(0)));
 			
 		mockMvc.perform(MockMvcRequestBuilders.get("/user/1"))
 			.andExpect(MockMvcResultMatchers.status().isOk())

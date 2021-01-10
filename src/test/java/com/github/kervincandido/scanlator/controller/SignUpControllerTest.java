@@ -24,7 +24,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.github.kervincandido.scanlator.controller.dto.UserDTO;
 import com.github.kervincandido.scanlator.controller.form.SignUpForm;
 import com.github.kervincandido.scanlator.service.UserService;
 import com.github.kervincandido.scanlator.util.JSONUtil;
@@ -55,7 +54,7 @@ public class SignUpControllerTest {
 		user.setId(1L);
 		
 		when(userService.create(ArgumentMatchers.any(SignUpForm.class)))
-			.thenReturn(new UserDTO(user));
+			.thenReturn(user);
 		
 		
 		mockMvc

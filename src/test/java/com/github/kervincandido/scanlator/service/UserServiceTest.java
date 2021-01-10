@@ -23,7 +23,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.github.kervincandido.scanlator.controller.dto.UserDTO;
 import com.github.kervincandido.scanlator.controller.form.SignUpForm;
 import com.github.kervincandido.scanlator.model.User;
 import com.github.kervincandido.scanlator.repository.UserRepository;
@@ -60,7 +59,7 @@ public class UserServiceTest {
 		when(userRepository.save(ArgumentMatchers.any(User.class)))
 				.thenReturn(user);
 		
-		UserDTO userDTO = userService.create(signUpForm);
+		User userDTO = userService.create(signUpForm);
 		
 		assertThat(userDTO, is(notNullValue()));
 		assertThat(userDTO.getId(), is(equalTo(1L)));
